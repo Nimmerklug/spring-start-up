@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>GoodBye View</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<h2>!!! GoodBye !!!</h2>
+<p>This is a paragraph</p>
+
+<a href="/welcome/hello">Say Hello</a>
+or
+<a href="/welcome/hello?name=Tom&surname=Smith">Hello with GET Req.</a>
+or
+<a href="/exit">Exit</a>
+
+<p th:text="${message}"/>
+
+</body>
+</html>

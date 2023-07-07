@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+    <Properties>
+        <Property name="log-path">PropertiesConfiguration</Property>
+    </Properties>
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console-Appender" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        </Console>
+        <!-- File Appender -->
+        <File name="File" fileName="hibernate.log">
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <!-- Hibernate after 6 -->
+        <!--
+        org.hibernate.SQL -	Log all SQL DML statements as they are executed
+        org.hibernate.type -	Log all JDBC parameters
+        org.hibernate.tool.hbm2ddl -	Log all SQL DDL statements as they are executed
+        org.hibernate.pretty -	Log the state of all entities (max 20 entities) associated with the session at flush time
+        org.hibernate.cache -	Log all second-level cache activity
+        org.hibernate.transaction -	Log transaction related activity
+        org.hibernate.jdbc -	Log all JDBC resource acquisition
+        org.hibernate.hql.ast.AST -	Log HQL and SQL ASTs during query parsing
+        org.hibernate.secure -	Log all JAAS authorization requests
+        org.hibernate -	Log everything (a lot of information, but very useful for troubleshooting)
+         -->
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <Logger name="org.hibernate.orm.jdbc.bind" level="trace" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <Logger name="org.hibernate.stat" level="trace" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <Logger name="org.hibernate.SQL_SLOW" level="trace" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <Logger name="org.hibernate.cache" level="trace" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <Logger name="org.hibernate" level="info" additivity="false">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console-Appender"/>
+            <!--<AppenderRef ref="File" />-->
+        </Root>
+    </Loggers>
+</Configuration>

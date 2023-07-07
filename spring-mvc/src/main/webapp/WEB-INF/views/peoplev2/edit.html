@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Update Person</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+
+<form th:action="@{/peoplev2/{id}(id=${person.getId()})}" th:method="PATCH" th:object="${person}">
+
+    <div style="color:red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error Message</div>
+    <label for="name">Enter name: </label>
+    <input id="name" th:field="*{name}" type="text"/><br/>
+
+    <div style="color:red" th:errors="*{age}" th:if="${#fields.hasErrors('age')}">Age Error Message</div>
+    <label for="age">Enter age: </label>
+    <input id="age" th:field="*{age}" type="text"/><br/>
+
+    <div style="color:red" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Email Error Message</div>
+    <label for="email">Enter email: </label>
+    <input id="email" th:field="*{email}" type="text"/><br/>
+
+    <input type="submit" value="!Update!"/>
+</form>
+
+<a th:href="@{/peoplev2/{id}(id=${person.getId()})}">Cancel</a>
+
+</body>
+</html>

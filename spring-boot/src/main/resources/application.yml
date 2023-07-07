@@ -1,0 +1,121 @@
+server:
+  port: 8888
+  error:
+    include-stacktrace: never
+
+spring:
+  profiles:
+    active: qa
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    #postgres://msfyizal:2BMxBQG4gNIlmsYCsGwHt3TQoSJI0E46@tyke.db.elephantsql.com/msfyizal
+    driver-class-name: org.postgresql.Driver
+    password: 2BMxBQG4gNIlmsYCsGwHt3TQoSJI0E46
+    url: jdbc:postgresql://tyke.db.elephantsql.com:5432/msfyizal?useSSL=false&useTimezone=true&serverTimezone=UTC
+    username: msfyizal
+
+    hikari:
+      connection-timeout: 1000
+      max-lifetime: 1000
+      maximum-pool-size: 1
+      validation-timeout: 1000
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+my:
+  some:
+    config: Very Important My Own Configuration data
+  welcome:
+    message: '!!!Wellcome!!! Glad to see you in DEV'
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+  datasource:
+    #postgres://weuzzbgz:gWZ3I5lls15oEECKXgMAL4OCjsQhXtcR@hansken.db.elephantsql.com/weuzzbgz
+    driver-class-name: org.postgresql.Driver
+    password: gWZ3I5lls15oEECKXgMAL4OCjsQhXtcR
+    url: jdbc:postgresql://hansken.db.elephantsql.com:5432/weuzzbgz?useSSL=false&useTimezone=true&serverTimezone=UTC
+    username: weuzzbgz
+
+    hikari:
+      connection-timeout: 1000
+      max-lifetime: 1000
+      maximum-pool-size: 1
+      validation-timeout: 1000
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+### Actuator specific endpoints exposure (in case bellow all endpoints are exposed beside env,beans) they need to be behind Spring Security ###
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+my:
+  some:
+    config: Very Important My Own Configuration data
+  welcome:
+    message: '!!!Wellcome!!! Glad to see you in QA'
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    #postgres://hfjasbdu:0o8jX7cg-av6yfcAW3EifE9NJHuPIPCK@surus.db.elephantsql.com/hfjasbdu
+    driver-class-name: org.postgresql.Driver
+    password: 0o8jX7cg-av6yfcAW3EifE9NJHuPIPC
+    url: jdbc:postgresql://surus.db.elephantsql.com:5432/hfjasbdu?useSSL=false&useTimezone=true&serverTimezone=UTC
+    username: hfjasbdu
+
+    hikari:
+      connection-timeout: 1000
+      max-lifetime: 1000
+      maximum-pool-size: 1
+      validation-timeout: 1000
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+my:
+  some:
+    config: Very Important My Own Configuration data
+  welcome:
+    message: '!!!Wellcome!!! Glad to see you in PROD'

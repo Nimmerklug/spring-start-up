@@ -1,0 +1,26 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  my-tomcat-docker-web-service:
+    container_name: my-tomcat-docker
+    image: tomcat:11.0.0-jdk21-openjdk-slim
+    volumes:
+      - ../target/deployments:/usr/local/tomcat/webapps
+    ports:
+      - '8888:8080'
+    depends_on:
+      - my-postgres-db-service
+
+  my-postgres-db-service:
+    container_name: my-postgres-docker
+    image: postgres:alpine3.18
+    restart: always
+    environment:
+      - POSTGRES_USER=dockeruser
+      - POSTGRES_PASSWORD=dockerpassword
+      - POSTGRES_DB=dockerdb
+    volumes:
+      - ./main/resources/postgres:/docker-entrypoint-initdb.d
+      #- ./resources/postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+

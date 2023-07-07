@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.baeldung.applicationcontext"/>
+
+    <!-- Functional part START-->
+    <!-- Read data from property file -->
+    <context:property-placeholder location="classpath:app.properties"/>
+
+    <!--Bean => Java object controlled by Spring Container-->
+    <bean id="myCurrentPet"
+          class="spring_container.example.inversion_of_control.Dog"
+          init-method="init"
+          destroy-method="destroy">
+    </bean>
+
+    <bean id="myCatPet" class="spring_container.example.inversion_of_control.Cat" scope="prototype">
+    </bean>
+
+    <bean id="myDogPet"
+          class="spring_container.example.inversion_of_control.Dog"
+          scope="prototype"
+          init-method="init2"
+          destroy-method="destroy2">
+    </bean>
+
+    <bean id="myCurrentPerson" class="spring_container.example.dependency_injection.Person" scope="singleton">
+        <property name="pet" ref="myCurrentPet"/>
+        <property name="name" value="Bob"/>
+        <property name="age" value="${person.age}"/>
+    </bean>
+
+    <bean id="personPetCat" class="spring_container.example.dependency_injection.Person" scope="prototype">
+        <constructor-arg ref="myCatPet"/>
+    </bean>
+
+    <bean id="personPetDog" class="spring_container.example.dependency_injection.Person" scope="prototype">
+        <constructor-arg ref="myDogPet"/>
+    </bean>
+
+    <!-- Functional part END-->
+    <!--
+    Someone else creates object and manage it, Spring Container give you access to it
+    ↓ Create and manage objects (instead of managing objects yourself you explain to String how to do that)
+    Inversion of Control-> Spring Container -> read config file -> create objects
+    Main program need to create object ↑  ↓ Return asked object
+    *bean
+    *@Component
+
+    ↓ Inject dependencies Ex: Employee = (Car=Engine + Type ...) + (House=Window + Price + Wall + Door + ..) + (Pet=...)
+    to create 1 Employee, need create and set Car, to do that need create/set Engine and so on for House and Pet
+    Instead of doing it manually, we tell Spring how to create objects and how to connect it with each other
+    Dependency Injection -> Spring Container -> read config file -> create objects
+    Main program need to create object ↑  ↓ Return asked object with dependencies
+    *id
+    *property - setter/value injection Ex: setPet(Pet myPet){..} -> <property name="pet" value="reg"/> !!! setPet -> pet !!!
+    *constructor-arg - constructor injection
+    *@Autowired
+    *@Qualifier
+    *@Value
+    -->
+
+
+</beans>
